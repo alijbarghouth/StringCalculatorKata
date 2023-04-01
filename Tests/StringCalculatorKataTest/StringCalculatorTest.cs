@@ -30,6 +30,8 @@ namespace StringCalculatorKataTest
             Assert.Equal(6, _stringCalculator.Add("1,2,3"));
             Assert.Equal(7, _stringCalculator.Add("1,2,3,1"));
             Assert.Equal(10, _stringCalculator.Add("1,2,7"));
+            Assert.Equal(6, _stringCalculator.Add("1\n2,3"));
+            Assert.Equal(11, _stringCalculator.Add("1\n2,3\n5"));
         }
     }
 }

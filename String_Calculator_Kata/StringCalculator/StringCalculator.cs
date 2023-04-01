@@ -18,9 +18,10 @@
         }
         private List<string> ConvartStringToArrayWithAtMostTowNumberOfTheArray(string numbers)
         {
-            var delimeter = numbers.Split(",").ToList();
+            var delimeter = new char[] { ',','\n' };
+            var number = numbers.Split(delimeter).ToList();
             
-            return delimeter;
+            return number;
         }
     }
 }
