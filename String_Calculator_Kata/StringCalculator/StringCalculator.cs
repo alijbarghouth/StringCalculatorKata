@@ -18,11 +18,9 @@
         }
         private List<string> ConvartStringToArrayWithAtMostTowNumberOfTheArray(string numbers)
         {
-            var tokens = numbers.Split(",");
-            if (tokens.Length == 1)
-                return new List<string> { tokens[0] };
-
-            return new List<string> { tokens[0], tokens[1] };
+            var delimeter = numbers.Split(",").ToList();
+            
+            return delimeter;
         }
     }
 }

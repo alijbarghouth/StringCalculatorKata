@@ -27,7 +27,9 @@ namespace StringCalculatorKataTest
         {
             Assert.Equal(1, _stringCalculator.Add("1"));
             Assert.Equal(3, _stringCalculator.Add("1,2"));
-            Assert.Equal(3, _stringCalculator.Add("1,2,3"));
+            Assert.Equal(6, _stringCalculator.Add("1,2,3"));
+            Assert.Equal(7, _stringCalculator.Add("1,2,3,1"));
+            Assert.Equal(10, _stringCalculator.Add("1,2,7"));
         }
     }
 }
