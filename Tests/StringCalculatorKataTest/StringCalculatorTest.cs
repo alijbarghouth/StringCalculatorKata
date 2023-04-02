@@ -50,5 +50,12 @@ namespace StringCalculatorKataTest
             Assert.Equal(3, _stringCalculator.Add("//;\n1;2"));
             Assert.Equal(11,_stringCalculator.Add("//;;;;;;1\n\n7\n1;2"));
         }
+
+        [Fact]
+        public void Add_NegativeNumbers()
+        {
+            Assert.Throws<ArgumentException>(() => _stringCalculator.Add("1,4,-1"));
+            Assert.Throws<ArgumentException>(() => _stringCalculator.Add("//;\n1;-2"));
+        }
     }
 }

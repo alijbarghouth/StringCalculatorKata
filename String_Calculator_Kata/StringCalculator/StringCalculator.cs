@@ -18,11 +18,20 @@
         }
         private int Sum(string numbers, char customDelimeter)
         {
-            var number = ConvartStringToArrayWithAtMostTowNumberOfTheArray(numbers, customDelimeter);
-            var myNumbers = GetNumberFromList(number);
+            var numberWithEmptySpace = ConvartStringToArrayWithAtMostTowNumberOfTheArray(numbers, customDelimeter);
+            var numbersWithoutEmptySpace = GetNumberFromList(numberWithEmptySpace);
+            var isNegativNumber = IsNegativeNumber(numbersWithoutEmptySpace);
+            ThrowAnExceptionIfFindNegativNumber(isNegativNumber, numbersWithoutEmptySpace);
 
-            return myNumbers
+            return numbersWithoutEmptySpace
                 .Sum(x => x);
+        }
+        private void ThrowAnExceptionIfFindNegativNumber(bool isNegativNumber,List<int> numbersWithoutEmptySpace)
+        {
+            if (isNegativNumber)
+                throw new ArgumentException($"negatives not allowed: " +
+                    $"{ReturnTheNumberNegativAndThrowAnException(numbersWithoutEmptySpace)}");
+
         }
         private List<string> ConvartStringToArrayWithAtMostTowNumberOfTheArray(string numbers, char customDelimeter)
         {
@@ -40,9 +49,18 @@
                 .Select(x => int.Parse(x))
                 .ToList();
         }
-        private bool IsNegativNumber(int number)
+        private string ReturnTheNumberNegativAndThrowAnException(List<int> numbersWithoutEmptySpace)
         {
-            return number < 0;
+            string nums = "";
+            numbersWithoutEmptySpace.Where(x => x < 0)
+                .ToList().ForEach(x => nums += x + ",");
+
+            return nums;
+        }
+        private bool IsNegativeNumber(List<int> number)
+        {
+            return number
+                .Any(x => x < 0);
         }
     }
 }
