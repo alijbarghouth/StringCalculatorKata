@@ -18,15 +18,30 @@
         }
         private int Sum(string numbers, char customDelimeter)
         {
-            var numberWithEmptySpace = ConvartStringToArrayWithAtMostTowNumberOfTheArray(numbers, customDelimeter);
-            var numbersWithoutEmptySpace = GetNumberFromList(numberWithEmptySpace);
-            var isNegativNumber = IsNegativeNumber(numbersWithoutEmptySpace);
-            ThrowAnExceptionIfFindNegativNumber(isNegativNumber, numbersWithoutEmptySpace);
+            var numberWitoutBigInteger = ReturnFinalArrayOfInteger(numbers, customDelimeter);
 
-            return numbersWithoutEmptySpace
+            return numberWitoutBigInteger
                 .Sum(x => x);
         }
-        private void ThrowAnExceptionIfFindNegativNumber(bool isNegativNumber,List<int> numbersWithoutEmptySpace)
+        private List<int> ReturnFinalArrayOfInteger(string numbers, char customDelimeter)
+        {
+            var numberWithEmptySpace = ConvartStringToArrayWithAtMostTowNumberOfTheArray(numbers, customDelimeter);
+            var numbersWithoutEmptySpace = GetNumberFromList(numberWithEmptySpace);
+            var findNegativNumber = FindNegativeNumber(numbersWithoutEmptySpace);
+            ThrowAnExceptionIfFindNegativNumber(findNegativNumber, numbersWithoutEmptySpace);
+            var findBigInteger = FindBigInteger(numbersWithoutEmptySpace);
+            var numberWithoutBigInteger = RemoveBigIntegerIfExists(findBigInteger, numbersWithoutEmptySpace);
+
+            return numberWithoutBigInteger;
+        }
+        private List<int> RemoveBigIntegerIfExists(bool findBigInteger, List<int> numbersWithoutEmptySpace)
+        {
+            return findBigInteger
+                ? numbersWithoutEmptySpace.Where(x => x <= 1000).ToList()
+                : numbersWithoutEmptySpace;
+        }
+
+        private void ThrowAnExceptionIfFindNegativNumber(bool isNegativNumber, List<int> numbersWithoutEmptySpace)
         {
             if (isNegativNumber)
                 throw new ArgumentException($"negatives not allowed: " +
@@ -57,10 +72,16 @@
 
             return nums;
         }
-        private bool IsNegativeNumber(List<int> number)
+        private bool FindNegativeNumber(List<int> number)
         {
             return number
                 .Any(x => x < 0);
+        }
+
+        private bool FindBigInteger(List<int> numbers)
+        {
+            return numbers
+                .Any(x => x > 1000);
         }
     }
 }
