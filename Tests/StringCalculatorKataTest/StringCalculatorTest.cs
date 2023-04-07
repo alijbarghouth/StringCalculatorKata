@@ -44,5 +44,12 @@ namespace StringCalculatorKataTest
             Assert.Equal(1, _stringCalculator.Add("1"));
             Assert.Equal(3, _stringCalculator.Add("1,2"));
         }
+        [Theory]
+        [InlineData("//;\n1;2", 3)]
+        [InlineData("//;;;;;;1\n\n7\n1;2", 11)]
+        public void Add_SupportDifferentDelimiters(string numbers, int expected)
+        {
+            Assert.Equal(expected, _stringCalculator.Add(numbers));
+        }
     }
 }
