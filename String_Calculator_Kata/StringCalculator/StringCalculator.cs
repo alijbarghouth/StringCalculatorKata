@@ -19,7 +19,7 @@
         }
         private List<int> ConvartStringToArrayOfNumber(string numbers)
         {
-            var listOfNumbers = numbers.Split(',');
+            var listOfNumbers = numbers.Split(',','\n');
 
              return listOfNumbers
                 .Select(x => int.Parse(x))

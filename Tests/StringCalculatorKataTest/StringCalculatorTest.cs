@@ -36,5 +36,13 @@ namespace StringCalculatorKataTest
         {
             Assert.Equal(expected, _stringCalculator.Add(numbers));
         }
+        [Theory]
+        [InlineData("1\n2,3", 6)]
+        [InlineData("1\n2,3\n5", 11)]
+        public void Add_ShouldReturnTheSumHandleNewLinesBetweenNumbers(string numbers, int expected)
+        {
+            Assert.Equal(1, _stringCalculator.Add("1"));
+            Assert.Equal(3, _stringCalculator.Add("1,2"));
+        }
     }
 }
