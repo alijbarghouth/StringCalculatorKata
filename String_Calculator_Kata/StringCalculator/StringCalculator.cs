@@ -30,6 +30,7 @@
             return number
                 .Where(x => !string.IsNullOrEmpty(x))
                 .Select(x => int.Parse(x))
+                .Where(x => x <=1000)
                 .ToList();
         }
         private char CustomDelimeter(string numbers)

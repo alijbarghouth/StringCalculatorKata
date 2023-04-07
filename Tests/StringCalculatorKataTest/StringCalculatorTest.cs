@@ -56,5 +56,10 @@ namespace StringCalculatorKataTest
         {
             Assert.Throws<ArgumentException>(() => _stringCalculator.Add("1,4,-1"));
         }
+        [Fact]
+        public void Add_IgnoreBigNumbers()
+        {
+            Assert.Equal(3, _stringCalculator.Add("1,1001,2000,2"));
+        }
     }
 }
