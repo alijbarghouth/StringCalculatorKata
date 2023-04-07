@@ -51,5 +51,10 @@ namespace StringCalculatorKataTest
         {
             Assert.Equal(expected, _stringCalculator.Add(numbers));
         }
+        [Fact]
+        public void Add_NegativeNumbersMustReturnException()
+        {
+            Assert.Throws<ArgumentException>(() => _stringCalculator.Add("1,4,-1"));
+        }
     }
 }

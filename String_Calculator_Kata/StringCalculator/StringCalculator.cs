@@ -16,6 +16,8 @@
         private int Sum(string numbers,char customDelimeter)
         {
             var listArrayOfNumbers = ConvartStringToArrayOfNumber(numbers,customDelimeter);
+            var isNegativNumber = HasNegativeNumber(listArrayOfNumbers);
+            ThrowAnExceptionIfFindNegativNumber(isNegativNumber, listArrayOfNumbers);
 
             return listArrayOfNumbers.Sum(x => x);
         }
@@ -26,13 +28,32 @@
             var number = numbers.Split(delimeter.ToArray()).ToList();
 
             return number
-                                .Where(x => !string.IsNullOrEmpty(x))
+                .Where(x => !string.IsNullOrEmpty(x))
                 .Select(x => int.Parse(x))
                 .ToList();
         }
         private char CustomDelimeter(string numbers)
         {
             return numbers.StartsWith("//") ? numbers[2] : ',';
+        }
+        private void ThrowAnExceptionIfFindNegativNumber(bool isNegativNumber, List<int> numbersWithoutEmptySpace)
+        {
+            if (isNegativNumber)
+                throw new ArgumentException($"negatives not allowed: " +
+                    $"{ReturnStirngContainTheNumberNegative(numbersWithoutEmptySpace)}");
+        }
+        private string ReturnStirngContainTheNumberNegative(List<int> numbersWithoutEmptySpace)
+        {
+            string nums = "";
+            numbersWithoutEmptySpace.Where(x => x < 0)
+                .ToList().ForEach(x => nums += x + ",");
+
+            return nums;
+        }
+        private bool HasNegativeNumber(List<int> number)
+        {
+            return number
+                .Any(x => x < 0);
         }
     }
 }
