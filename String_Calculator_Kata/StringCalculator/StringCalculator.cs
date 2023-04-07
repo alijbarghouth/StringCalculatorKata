@@ -19,13 +19,9 @@
         }
         private List<int> ConvartStringToArrayOfNumber(string numbers)
         {
-            var listOfNumbers  = numbers.Split(',');
-            if(listOfNumbers.Length == 1 )
-                return new List<string> { listOfNumbers[0] }
-                .Select(x => int.Parse(x))
-                .ToList();
+            var listOfNumbers = numbers.Split(',');
 
-             return new List<string> { listOfNumbers[0], listOfNumbers[1] }
+             return listOfNumbers
                 .Select(x => int.Parse(x))
                 .ToList(); 
         }

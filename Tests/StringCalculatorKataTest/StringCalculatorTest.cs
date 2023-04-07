@@ -29,5 +29,12 @@ namespace StringCalculatorKataTest
         {
             Assert.Equal(expected, _stringCalculator.Add(numbers));
         }
+        [Theory]
+        [InlineData("1,2,3,4", 10)]
+        [InlineData("1,2,3,4,5", 15)]
+        public void Add_ShouldReturnTheSumAllowUnknownAmountOfNumbers(string numbers, int expected)
+        {
+            Assert.Equal(expected, _stringCalculator.Add(numbers));
+        }
     }
 }
