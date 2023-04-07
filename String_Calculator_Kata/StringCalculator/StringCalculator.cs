@@ -6,61 +6,28 @@
         {
             if (string.IsNullOrWhiteSpace(numbers))
                 return 0;
-            var customDelimeter = CustomDelimeter(numbers);
-            var sum = Sum(numbers, customDelimeter);
+            var sum = Sum(numbers);
 
             return sum;
         }
 
-        private int Sum(string numbers, char customDelimeter)
+        private int Sum(string numbers)
         {
-            var listArrayOfNumbers = ConvartStringToArrayOfNumber(numbers, customDelimeter);
+            var listArrayOfNumbers = ConvartStringToArrayOfNumber(numbers);
 
             return listArrayOfNumbers.Sum(x => x);
         }
-        private char CustomDelimeter(string numbers)
+        private List<int> ConvartStringToArrayOfNumber(string numbers)
         {
-            return numbers.StartsWith("//") ? numbers[2] : ',';
-        }
-        private List<int> ConvartStringToArrayOfNumber(string numbers, char customDelimeter)
-        {
-            var listNumbers = ConvartStringToArrayWithAtMostTowNumberOfTheArray(numbers, customDelimeter);
-            var isNegativNumber = HasNegativeNumber(listNumbers);
-            ThrowAnExceptionIfFindNegativNumber(isNegativNumber, listNumbers);
-
-            return listNumbers;
-        }
-
-        private void ThrowAnExceptionIfFindNegativNumber(bool isNegativNumber, List<int> numbersWithoutEmptySpace)
-        {
-            if (isNegativNumber)
-                throw new ArgumentException($"negatives not allowed: " +
-                    $"{ReturnStirngContainTheNumberNegative(numbersWithoutEmptySpace)}");
-        }
-        private List<int> ConvartStringToArrayWithAtMostTowNumberOfTheArray(string numbers, char customDelimeter)
-        {
-            var delimeter = new char[] { '\n', '/' }.ToList();
-            delimeter.Add(customDelimeter);
-            var number = numbers.Split(delimeter.ToArray()).ToList();
-
-            return number
-                .Where(x => !string.IsNullOrEmpty(x))
+            var listOfNumbers  = numbers.Split(',');
+            if(listOfNumbers.Length == 1 )
+                return new List<string> { listOfNumbers[0] }
                 .Select(x => int.Parse(x))
-                .Where(x => x <= 1000)
                 .ToList();
-        }
-        private string ReturnStirngContainTheNumberNegative(List<int> numbersWithoutEmptySpace)
-        {
-            string nums = "";
-            numbersWithoutEmptySpace.Where(x => x < 0)
-                .ToList().ForEach(x => nums += x + ",");
 
-            return nums;
-        }
-        private bool HasNegativeNumber(List<int> number)
-        {
-            return number
-                .Any(x => x < 0);
+             return new List<string> { listOfNumbers[0], listOfNumbers[1] }
+                .Select(x => int.Parse(x))
+                .ToList(); 
         }
     }
 }
