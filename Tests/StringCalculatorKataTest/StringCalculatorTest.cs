@@ -17,6 +17,7 @@ namespace StringCalculatorKataTest
         [InlineData(null, 0)]
         [InlineData("1", 1)]
         [InlineData("1,2", 3)]
+        [InlineData("1,2,4,5,6", 0)]
         public void Add_Success(string numbers, int expected)
         {
             var actual = _stringCalculator.Add(numbers);
