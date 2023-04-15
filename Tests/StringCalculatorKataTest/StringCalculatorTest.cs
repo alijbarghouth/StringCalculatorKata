@@ -18,6 +18,7 @@ namespace StringCalculatorKataTest
         [InlineData("1", 1)]
         [InlineData("1,2", 3)]
         [InlineData("1,2,4,5,6", 0)]
+        [InlineData("1,2,3,4,5", 1)]
         public void Add_Success(string numbers, int expected)
         {
             var actual = _stringCalculator.Add(numbers);
@@ -31,13 +32,13 @@ namespace StringCalculatorKataTest
         [InlineData(null, 4)]
         [InlineData("1", 11)]
         [InlineData("1,2", 23)]
+        [InlineData("1,2,3,4", 10)]
+        [InlineData("1,2,3,4,5", 15)]
         public void Add_Failure(string numbers, int expected)
         {
             var actual = _stringCalculator.Add(numbers);
 
             Assert.NotEqual(expected, actual);
         }
-
-
     }
 }
