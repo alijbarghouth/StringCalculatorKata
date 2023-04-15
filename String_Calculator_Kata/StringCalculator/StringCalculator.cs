@@ -11,13 +11,13 @@
             return sum.Sum(x => x);
         }
 
-        private List<int> Convart(string inputs)
+        private List<int> Convart(string numbers)
         {
-            var numbers  = inputs.Split(',');
-            if(numbers.Length is 1 or 2)
-                return numbers.Select(x => int.Parse(x)).ToList();
-            
-            return new List<int> ();
+            var listOfNumbers = numbers.Split(',');
+
+             return listOfNumbers
+                .Select(x => int.Parse(x))
+                .ToList(); 
         }
     }
 }
