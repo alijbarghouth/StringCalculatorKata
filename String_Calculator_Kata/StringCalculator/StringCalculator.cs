@@ -2,28 +2,22 @@
 {
     public class StringCalculator : IStringCalculator
     {
-        public int Add(string numbers)
+        public int Add(string inputs)
         {
-            if (string.IsNullOrWhiteSpace(numbers))
+            if (string.IsNullOrWhiteSpace(inputs))
                 return 0;
-            var sum = Sum(numbers);
+            var sum = Convart(inputs);
 
-            return sum;
+            return sum.Sum(x => x);
         }
 
-        private int Sum(string numbers)
+        private List<int> Convart(string inputs)
         {
-            var listArrayOfNumbers = ConvartStringToArrayOfNumber(numbers);
-
-            return listArrayOfNumbers.Sum(x => x);
-        }
-        private List<int> ConvartStringToArrayOfNumber(string numbers)
-        {
-            var listOfNumbers = numbers.Split(',');
-
-             return listOfNumbers
-                .Select(x => int.Parse(x))
-                .ToList(); 
+            var numbers  = inputs.Split(',');
+            if(numbers.Length is 1 or 2)
+                return numbers.Select(x => int.Parse(x)).ToList();
+            
+            return new List<int> ();
         }
     }
 }
