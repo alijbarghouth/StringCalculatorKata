@@ -1,7 +1,10 @@
-﻿public class Program
+﻿using StringCalculatorKata.StringCalculator;
+
+public class Program
 {
     private static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        IStringCalculator stringCalculator = new StringCalculator();
+        Console.WriteLine($"The sum of the input is : {stringCalculator.Add("1,2")}");
     }
 }

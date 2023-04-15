@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\String_Calculator_Kata\StringCalculatorKata.csproj" />
+  </ItemGroup>
+
 </Project>
