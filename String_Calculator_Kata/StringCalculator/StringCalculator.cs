@@ -2,31 +2,26 @@
 {
     public class StringCalculator : IStringCalculator
     {
-        public int Add(string numbers)
+        public int Add(string inputs)
         {
-            if (string.IsNullOrWhiteSpace(numbers))
+            if (string.IsNullOrWhiteSpace(inputs))
                 return 0;
 
-            var customDelimeter = CustomDelimeter(numbers);
-            var sum = Sum(numbers,customDelimeter);
+            var customDelimeter = CustomDelimeter(inputs);
+            var sum = Convart(inputs, customDelimeter);
 
-            return sum;
+            return sum.Sum(x => x);
         }
 
-        private int Sum(string numbers,char customDelimeter)
-        {
-            var listArrayOfNumbers = ConvartStringToArrayOfNumber(numbers,customDelimeter);
 
-            return listArrayOfNumbers.Sum(x => x);
-        }
-        private List<int> ConvartStringToArrayOfNumber(string numbers,char customDelimeter)
+        private List<int> Convart(string inputs, char customDelimeter)
         {
             var delimeter = new char[] { '\n', '/' }.ToList();
             delimeter.Add(customDelimeter);
-            var number = numbers.Split(delimeter.ToArray()).ToList();
+            var numbers = inputs.Split(delimeter.ToArray()).ToList();
 
-            return number
-                                .Where(x => !string.IsNullOrEmpty(x))
+            return numbers
+                .Where(x => !string.IsNullOrEmpty(x))
                 .Select(x => int.Parse(x))
                 .ToList();
         }
