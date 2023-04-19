@@ -2,47 +2,40 @@
 {
     public class StringCalculator : IStringCalculator
     {
-        public int Add(string numbers)
+        public int Add(string inputs)
         {
-            if (string.IsNullOrWhiteSpace(numbers))
+            if (string.IsNullOrWhiteSpace(inputs))
                 return 0;
 
-            var customDelimeter = CustomDelimeter(numbers);
-            var sum = Sum(numbers,customDelimeter);
-
-            return sum;
+            var customDelimeter = CustomDelimeter(inputs);
+            var numbers = Convart(inputs, customDelimeter);
+            var isNegativNumber = HasNegativeNumber(numbers);
+            ThrowAnExceptionIfFindNegativNumber(isNegativNumber, numbers);
+            return numbers.Sum(x => x);
         }
 
-        private int Sum(string numbers,char customDelimeter)
-        {
-            var listArrayOfNumbers = ConvartStringToArrayOfNumber(numbers,customDelimeter);
-            var isNegativNumber = HasNegativeNumber(listArrayOfNumbers);
-            ThrowAnExceptionIfFindNegativNumber(isNegativNumber, listArrayOfNumbers);
-
-            return listArrayOfNumbers.Sum(x => x);
-        }
-        private List<int> ConvartStringToArrayOfNumber(string numbers,char customDelimeter)
+        private static List<int> Convart(string inputs, char customDelimeter)
         {
             var delimeter = new char[] { '\n', '/' }.ToList();
             delimeter.Add(customDelimeter);
-            var number = numbers.Split(delimeter.ToArray()).ToList();
+            var numbers = inputs.Split(delimeter.ToArray()).ToList();
 
-            return number
+            return numbers
                 .Where(x => !string.IsNullOrEmpty(x))
                 .Select(x => int.Parse(x))
                 .ToList();
         }
-        private char CustomDelimeter(string numbers)
+        private static char CustomDelimeter(string numbers)
         {
             return numbers.StartsWith("//") ? numbers[2] : ',';
         }
-        private void ThrowAnExceptionIfFindNegativNumber(bool isNegativNumber, List<int> numbersWithoutEmptySpace)
+        private static void ThrowAnExceptionIfFindNegativNumber(bool isNegativNumber, List<int> numbersWithoutEmptySpace)
         {
             if (isNegativNumber)
                 throw new ArgumentException($"negatives not allowed: " +
                     $"{ReturnStirngContainTheNumberNegative(numbersWithoutEmptySpace)}");
         }
-        private string ReturnStirngContainTheNumberNegative(List<int> numbersWithoutEmptySpace)
+        private static string ReturnStirngContainTheNumberNegative(List<int> numbersWithoutEmptySpace)
         {
             string nums = "";
             numbersWithoutEmptySpace.Where(x => x < 0)
@@ -50,7 +43,7 @@
 
             return nums;
         }
-        private bool HasNegativeNumber(List<int> number)
+        private static bool HasNegativeNumber(List<int> number)
         {
             return number
                 .Any(x => x < 0);
