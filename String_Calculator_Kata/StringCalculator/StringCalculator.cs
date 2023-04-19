@@ -6,18 +6,28 @@
         {
             if (string.IsNullOrWhiteSpace(inputs))
                 return 0;
-            var sum = Convart(inputs);
+
+            var customDelimeter = CustomDelimeter(inputs);
+            var sum = Convart(inputs, customDelimeter);
 
             return sum.Sum(x => x);
         }
 
-        private List<int> Convart(string numbers)
-        {
-            var listOfNumbers = numbers.Split(',');
 
-             return listOfNumbers
+        private List<int> Convart(string inputs, char customDelimeter)
+        {
+            var delimeter = new char[] { '\n', '/' }.ToList();
+            delimeter.Add(customDelimeter);
+            var numbers = inputs.Split(delimeter.ToArray()).ToList();
+
+            return numbers
+                .Where(x => !string.IsNullOrEmpty(x))
                 .Select(x => int.Parse(x))
-                .ToList(); 
+                .ToList();
+        }
+        private char CustomDelimeter(string numbers)
+        {
+            return numbers.StartsWith("//") ? numbers[2] : ',';
         }
     }
 }
