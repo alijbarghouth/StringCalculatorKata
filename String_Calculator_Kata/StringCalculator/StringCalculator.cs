@@ -10,12 +10,13 @@
             var customDelimeter = CustomDelimeter(inputs);
             var numbers = Convart(inputs, customDelimeter);
             var hasNegativNumber = HasNegativeNumber(numbers);
-            if(hasNegativNumber)
+            if (hasNegativNumber)
                 ThrowAnExceptionIfFindNegativNumber(numbers);
 
-            return numbers.Sum(x => x);
+            return numbers
+                .Where(x => x <= 1000 )
+                .Sum(x => x);
         }
-
         private static List<int> Convart(string inputs, char customDelimeter)
         {
             var delimeter = new char[] { '\n', '/' }.ToList();
@@ -31,7 +32,7 @@
         {
             return numbers.StartsWith("//") ? numbers[2] : ',';
         }
-        private static void ThrowAnExceptionIfFindNegativNumber( List<int> numbersWithoutEmptySpace)
+        private static void ThrowAnExceptionIfFindNegativNumber(List<int> numbersWithoutEmptySpace)
         {
                 throw new ArgumentException($"negatives not allowed: " +
                     $"{ReturnStirngContainTheNumberNegative(numbersWithoutEmptySpace)}");
