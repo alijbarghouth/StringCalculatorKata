@@ -47,12 +47,10 @@ namespace StringCalculatorKataTest
         {
             Assert.Equal(expected, _stringCalculator.Add(numbers));
         }
-        [Theory]
-        [InlineData("//\n;\n1;2", 3)]
-        [InlineData("//\n;;;;;;1\n\n7\n1;2", 11)]
-        public void Add_FailureSupportDifferentDelimiters(string numbers, int expected)
+        [Fact]
+        public void Add_NegativeNumbersMustReturnException()
         {
-            Assert.NotEqual(expected, _stringCalculator.Add(numbers));
+            Assert.Throws<ArgumentException>(() => _stringCalculator.Add("1,4,-1"));
         }
     }
 }
